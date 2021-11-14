@@ -38,6 +38,26 @@ create table Comments (
     comment_text varchar(1000) not null
 );
 
+create table CommentReplies(
+	comment_reply_id int primary key,
+	comment_reply_author_id int not null,
+	comment_reply_text varchar(1000) not null
+);
+create table Topics(
+	topic_id int primary key,
+	topic_name varchar(100) not null
+);
+create table PostsWithTopics(
+	topic_post_ID int primary key,
+	topic_post_post_id int not null,
+	topic_post_topic_id int not null
+);
+create table Followers(
+	follower_id int primary key,
+	follower_user_id int not null,
+	follower_following_id int not null 
+);
+
 -- insert
 insert into Users values (1, 'Cecylia Dumas', 'Hi, my name is Cecylia Dumas', 0);
 insert into Users values (2, 'Jeannette McDermott', 'Hi, my name is Jeannette McDermott', 1);
@@ -83,6 +103,49 @@ insert into Comments values (8, 1, 10, '11-10-2021', 'Comment from user 10');
 insert into Comments values (9, 5, 5, '11-14-2021', 'Comment from user 5');
 insert into Comments values (10, 7, 10, '11-15-2021', 'Comment from user 10');
 
+insert into CommentReplies values(1, 1, 'Comment reply from user 1');
+insert into CommentReplies values(2, 9, 'comment reply from user 9');
+insert into CommentReplies values(3, 7, 'comment reply from user 7');
+insert into CommentReplies values(4, 10, 'comment reply from user 10');
+insert into CommentReplies values(5, 6, 'comment reply from user 6');
+insert into CommentReplies values(6, 4, 'comment reply from user 4');
+insert into CommentReplies values(7, 2, 'comment reply from user 2');
+insert into CommentReplies values(8, 10, 'comment reply from user 10');
+insert into CommentReplies values(9, 4, 'comment reply from user 4');
+insert into CommentReplies values(10, 1, 'comment reply from user 1');
+
+insert into topics values(1, 'Science');
+insert into topics values(2, 'Art');
+insert into topics values(3, 'Enertainment');
+insert into topics values(4,'Technology');
+insert into topics values(5, 'Local News');
+insert into topics values(6, 'Global News');
+insert into topicss values(7, 'Business');
+insert into topics values(8, 'Economics');
+insert into topics values(9, 'Fashion');
+insert into topics values(10, 'Sports');
+
+insert into PostsWithTopics values (1, 3, 5); 
+insert into PostsWithTopics values (2, 2, 6); 
+insert into PostsWithTopics values (3, 3, 3); 
+insert into PostsWithTopics values (4, 8, 9); 
+insert into PostsWithTopics values (5, 4, 9); 
+insert into PostsWithTopics values (6, 9, 9); 
+insert into PostsWithTopics values (7, 6, 5); 
+insert into PostsWithTopics values (8, 6, 10); 
+insert into PostsWithTopics values (9, 8, 1); 
+insert into PostsWithTopics values (10, 7, 6); 
+
+insert into Followers values(1, 3, 9); 
+insert into Followers values(2, 3, 5); 
+insert into Followers values(3, 3, 2); 
+insert into Followers values(4, 2, 3); 
+insert into Followers values(5, 4, 5); 
+insert into Followers values(6, 7, 3); 
+insert into Followers values(7, 1, 2); 
+insert into Followers values(8, 10, 3); 
+insert into Followers values(9, 7, 3); 
+insert into Followers values(10, 6, 5); 
 -- select
 
 
