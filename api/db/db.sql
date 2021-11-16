@@ -114,16 +114,16 @@ insert into CommentReplies values(8, 10, 'comment reply from user 10');
 insert into CommentReplies values(9, 4, 'comment reply from user 4');
 insert into CommentReplies values(10, 1, 'comment reply from user 1');
 
-insert into topics values(1, 'Science');
-insert into topics values(2, 'Art');
-insert into topics values(3, 'Enertainment');
-insert into topics values(4,'Technology');
-insert into topics values(5, 'Local News');
-insert into topics values(6, 'Global News');
-insert into topicss values(7, 'Business');
-insert into topics values(8, 'Economics');
-insert into topics values(9, 'Fashion');
-insert into topics values(10, 'Sports');
+insert into Topics values(1, 'Science');
+insert into Topics values(2, 'Art');
+insert into Topics values(3, 'Enertainment');
+insert into Topics values(4,'Technology');
+insert into Topics values(5, 'Local News');
+insert into Topics values(6, 'Global News');
+insert into Topics values(7, 'Business');
+insert into Topics values(8, 'Economics');
+insert into Topics values(9, 'Fashion');
+insert into Topics values(10, 'Sports');
 
 insert into PostsWithTopics values (1, 3, 5); 
 insert into PostsWithTopics values (2, 2, 6); 
@@ -147,7 +147,30 @@ insert into Followers values(8, 10, 3);
 insert into Followers values(9, 7, 3); 
 insert into Followers values(10, 6, 5); 
 -- select
+SELECT Posts.post_id
+FROM Posts, Users
+WHERE Posts.post_author_id=Users.user_id and Users.user_id=6;
+--get all the posts by a certain user(user 6 for example)
 
+SELECT Topics.topic_id
+FROM Topics, Users, PostsWithTopics, Posts 
+WHERE Topics.topic_id=PostsWithTopics.topic_post_topic_id and Posts.post_id=Users.user_id and PostsWithTopics.topic_post_post_id=Posts.post_id and Users.user_id=6 and Topics.topic_name='Sports'; 
+--Get all the instances of a specific topic from a user(user 6 for example)
+
+SELECT user_name
+FROM Users
+WHERE user_name='Tomomi Stanković';
+--Get all the users matching a certain name
+
+SELECT Comments.comment_text
+FROM Posts, Comments
+WHERE Posts.post_id=Comments.comment_post_id and Posts.post_id=1;
+-- Get all the comments for a specific post
+
+--****I didn't use number 4. I did 1, 2, 3,and 5****
+
+--Get all the posts made by users on a certain date
+--Get all the posts matching a certain search phrase(possibly this one instead)
 
 -- update
 
