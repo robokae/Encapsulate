@@ -34,8 +34,13 @@ WHERE
 -- DELETE TABLE ROWS
 -- ===================
 
--- Remove a post
+-- Remove first post
+DELETE FROM Posts WHERE Post_id=1;
+DELETE FROM Comments WHERE comment_post_id=1;
+DELETE FROM Liked WHERE liked_post_id=1;
+DELETE FROM CommentReplies WHERE comment_reply_parent_comment_id=1;
 
--- Remove a follower
-
--- Remove a like
+-- Remove a follower, Cecylia Dumas unfollowed Jane Doe
+DELETE FROM Followers WHERE follower_user_id=1 and follower_following_id=2;
+-- Remove a like by Zef Němec from the 10th post 
+DELETE FROM Liked WHERE liked_by_id=6 and liked_post_id=10;
