@@ -166,32 +166,74 @@ insert into Followers values(10, 6, 5);
 -- ================
 -- QUERIES
 -- ================
+--get all the posts by a certain user(user 6 for example) post text, amount of comments, amount of likes, name of topic, post-date, post-author
+SELECT 
+    Users.user_name, 
+    Posts.post_date, 
+    Posts.post_text, 
+    Topics.topic_name,
+    (SELECT count(Liked.liked_id)
+     FROM Liked
+     WHERE Liked.liked_post_id=post_id) as num_likes,
+    (SELECT count(Comments.comment_id)
+     FROM Comments
+     WHERE Comments.comment_post_id=post_id) as num_comments
+FROM 
+    Posts, 
+    Users, 
+    Topics
+WHERE 
+    Posts.post_author_id=Users.user_id and 
+    Posts.post_topic_id=Topics.topic_id  and 
+    Posts.post_author_id=6;
 
--- Get all the posts by a certain user (user 6 for example)
-SELECT post_id 
-FROM Posts, Users
-WHERE Posts.post_author_id=Users.user_id 
-    and Users.user_id=6;
 
--- Get all the instances of a specific topic from a user (user 6 for example)
-SELECT Topics.topic_id
-FROM Topics, Users, PostsWithTopics, Posts 
-WHERE Topics.topic_id=PostsWithTopics.topic_post_topic_id 
-    and Posts.post_id=Users.user_id 
-    and PostsWithTopics.topic_post_post_id=Posts.post_id 
-    and Users.user_id=6 
-    and Topics.topic_name='Sports'; 
+--Get all the instances of a specific topic from a user(user 6 for example)
+SELECT 
+    Users.user_name, 
+    Posts.post_date,
+    Topics.topic_name, 
+    Posts.post_text,
+    (SELECT count(Liked.liked_id)
+    FROM Liked
+    WHERE Liked.liked_post_id=post_id) as num_likes,
+    (SELECT count(Comments.comment_id)
+    FROM Comments
+    WHERE Comments.comment_post_id=post_id) as num_comments
+FROM 
+    Topics, 
+    Users, 
+    PostsWithTopics, 
+    Posts 
+WHERE 
+    Topics.topic_id=PostsWithTopics.topic_post_topic_id and 
+    Posts.post_author_id=Users.user_id and 
+    Posts.post_topic_id=Topics.topic_id and 
+    Users.user_id=6 and 
+    Topics.topic_name='Sports'; 
 
 --Get all the users matching a certain name
 SELECT user_name
 FROM Users
 WHERE user_name='Tomomi Stanković';
 
--- Get all the comments for a specific post
-SELECT Comments.comment_text
-FROM Posts, Comments
-WHERE Posts.post_id=Comments.comment_post_id 
-    and Posts.post_id=1;
+-- Get all the comments for a specific post commentAuthor, text, num_replies, date
+SELECT 
+    Users.user_name, 
+    Comments.comment_date,
+    (Select count(CommentReplies.comment_reply_author_id)
+     FROM CommentReplies 
+     WHERE CommentReplies.comment_reply_parent_comment_id=Comments.comment_author_id)  as num_replies
+FROM 
+    Posts, 
+    Comments, 
+    Users
+WHERE 
+    Posts.post_id=Comments.comment_post_id and 
+    Comments.comment_author_id=Users.user_id and
+    Comments.comment_post_id=5;
+
+
 
 -- Get all the posts matching a certain search phrase
     -- Example search phrase: 'blandit volutpat maecenas'
