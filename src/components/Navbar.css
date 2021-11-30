@@ -1,0 +1,58 @@
+.navbar {
+    width: 100vw;
+    height: 4rem;
+    background-color: #2192FA;
+    position: relative;
+}
+
+nav {
+    width: 80%;
+    height: inherit;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    color: #F8F8F8;
+    position: absolute;
+    left: 10%;
+}
+
+.logo, .logo-text {
+    display: inline-block;
+}
+
+.logo {
+    color: #F8F8F8;
+}
+
+.logo-text {
+    margin-left: .5rem;
+}
+
+.search-bar, .sign-in-button {
+    height: 2rem;
+    padding: .1rem .5rem;
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+}
+
+.search-bar {
+    border: transparent;
+    border-radius: .5rem;
+    color: #758694;
+    background-color: #FFFFFF;
+    margin-right: 1rem;
+}
+
+.search-bar:focus {
+    outline: none;
+}
+
+.sign-in-button {
+    color: #F8F8F8;
+    background-color: transparent;
+    border: none;
+}
+
+.sign-in-button:hover {
+    cursor: pointer;
+}
