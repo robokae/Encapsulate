@@ -1,0 +1,110 @@
+.landing {
+    width: 100vw;
+    background-color: #E5E5E5;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    margin: 0;
+    padding: 0;
+}
+
+.topLanding,
+.bottomLanding {
+    border-radius: 1rem;
+    box-shadow: 0px 3px 20px rgba(33, 146, 250, 0.1);
+}
+
+.topLanding{
+    margin: 2% 0;
+    width: 80%;
+    height: 75vh;
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: row;
+
+}
+
+.topDiv-words {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.topDiv-words-container {
+    height: 60%;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.topDiv-words{
+    width:50%;
+}
+
+.topDiv-image {
+    width: 50%;
+}
+
+.bottomLanding{
+    background-color: #C4D8E3;
+    margin: 2% 0;
+    width: 80%;
+    height: 75vh;
+    display: flex;
+    flex-direction: row;
+}
+
+.bottomDiv-words-container {
+    height: 60%;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.bottomDiv-words{
+    width:50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bottomDiv-image {
+    width: 50%;
+}
+
+.bottomDiv-words{
+    width:50%;
+}
+.social-friends {
+    width: 75%;
+    height: 75%;
+}
+.social-serenity{
+    width:85%;
+    height:85%;
+}
+
+
+h1{
+    color:#0B1319;
+    font-size: 64px;
+    font-weight: bold;
+    /* padding-top:75px; */
+}
+h3{
+    color:#758694;
+    font-size: 20px;
+    font-weight: normal;
+    
+}
+
+
