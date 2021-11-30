@@ -1,5 +1,6 @@
 import { Routes, Route, Link } from 'react-router-dom';
 import './App.css';
+import Navbar from './components/Navbar.js';
 import Landing from './pages/landing/Landing.js';
 import Home from './pages/home/Home.js';
 import Create from './pages/create/Create.js';
@@ -9,8 +10,7 @@ import SearchResults from './pages/searchResults/SearchResults.js';
 function App() {
   return (
     <div className="App">
-      <h1>Encapsulate</h1>
-
+      <Navbar />
       <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/home" element={<Home />} />

@@ -1,8 +1,10 @@
-import './searchResults.css';
+import './SearchResults.css';
 
 function SearchResults() {
     return (
-        <h1>Search Results</h1> 
+        <div className="search-results">
+            
+        </div> 
     );
 }
 

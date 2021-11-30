@@ -1,8 +1,10 @@
-import './landing.css';
+import './Landing.css';
 
 function Landing() {
     return (
-        <h1>Landing</h1>
+        <div className="landing">
+            
+        </div> 
     );
 }
 

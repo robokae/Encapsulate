@@ -1,8 +1,10 @@
-import './create.css';
+import './Create.css';
 
 function Create() {
     return (
-        <h1>Create</h1> 
+        <div className="create">
+            
+        </div>
     );
 }
 
