@@ -7,7 +7,7 @@ import App from './App';
 
 WebFont.load({
   google: {
-    families: ['Open Sans:400,600,700']
+    families: ['Open Sans:400,600,700', 'Poppins:700']
   }
 });
 

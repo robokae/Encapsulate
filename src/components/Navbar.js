@@ -3,6 +3,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPeopleCarry } from '@fortawesome/free-solid-svg-icons';
 import './Navbar.css';
 
+import SignInPopup from './signInPopup/SignInPopup.js';
+
+const displaySignInPopup = () => {
+    console.log("Sign in");
+}
+
 function Navbar() {
     return (
         <div className="navbar">
@@ -15,7 +21,7 @@ function Navbar() {
                 </div>
                 <div className="navbar-right">
                     <input className="search-bar" placeholder="Search..." autoComplete="off" />
-                    <button className="sign-in-button">Sign in</button> 
+                    <button className="sign-in-button" onClick={displaySignInPopup}>Sign in</button> 
                 </div>
             </nav> 
         </div>
