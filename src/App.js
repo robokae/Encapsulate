@@ -15,17 +15,24 @@ import SignInPopup from './components/signInPopup/SignInPopup.js';
 // }
 
 function App() {
+  // state for keeping track of whether user is logged in or not
   const [isLoggedIn, setLoginState] = useState(false);
+
+  // state for sign in popup
   const [popupIsDisplayed, setPopupState] = useState(false);
 
+  // change sign in popup state when the user clicks the sign in button
+  // or closes the popup
   const togglePopup = () => 
     setPopupState(!popupIsDisplayed);
 
+  // change login state when the user successfully signs in
   const login = () => 
     setLoginState(true);
 
   return (
     <div className="App">
+      {/* Show sign in popup only when sign in button is clicked */}
       {popupIsDisplayed
         ? <SignInPopup closePopup={togglePopup} login={login}/>
         : null
