@@ -1,4 +1,5 @@
-import { Routes, Route, Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import Navbar from './components/Navbar.js';
 import Landing from './pages/landing/Landing.js';
@@ -9,10 +10,27 @@ import SearchResults from './pages/searchResults/SearchResults.js';
 
 import SignInPopup from './components/signInPopup/SignInPopup.js';
 
+// const displaySignInPopup = () => {
+//   console.log("Sign in");
+// }
+
 function App() {
+  const [isLoggedIn, setLoginState] = useState(false);
+  const [popupIsDisplayed, setPopupState] = useState(false);
+
+  const togglePopup = () => 
+    setPopupState(!popupIsDisplayed);
+
+  const login = () => 
+    setLoginState(true);
+
   return (
     <div className="App">
-      <Navbar />
+      {popupIsDisplayed
+        ? <SignInPopup closePopup={togglePopup} login={login}/>
+        : null
+      }
+      <Navbar isLoggedIn={isLoggedIn} displayPopup={togglePopup} />
       <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/home" element={<Home />} />

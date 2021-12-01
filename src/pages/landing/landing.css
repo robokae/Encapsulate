@@ -1,15 +1,10 @@
 .landing {
-    width: 100vw;
-    background-color: #E5E5E5;
-    overflow-x: hidden;
+    width: auto;
+    background-color: #F5F7FA; 
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-h1 {
-    margin: 0;
-    padding: 0;
+    position: relative;
 }
 
 .topLanding,
@@ -18,7 +13,7 @@ h1 {
     box-shadow: 0px 3px 20px rgba(33, 146, 250, 0.1);
 }
 
-.topLanding{
+.topLanding {
     margin: 2% 0;
     width: 80%;
     height: 75vh;
@@ -49,12 +44,15 @@ h1 {
 }
 
 .topDiv-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 50%;
 }
 
 .bottomLanding{
     background-color: #C4D8E3;
-    margin: 2% 0;
+    margin: 0 0 2% 0;
     width: 80%;
     height: 75vh;
     display: flex;
@@ -78,6 +76,9 @@ h1 {
 }
 
 .bottomDiv-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 50%;
 }
 
@@ -95,11 +96,15 @@ h1 {
 
 
 h1{
+    margin: 0;
+    padding: 0;
     color:#0B1319;
+    font-family: 'Poppins', Arial, Helvetica, sans-serif;
     font-size: 64px;
     font-weight: bold;
-    /* padding-top:75px; */
+    line-height: 5rem;
 }
+
 h3{
     color:#758694;
     font-size: 20px;
