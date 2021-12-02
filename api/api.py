@@ -22,6 +22,10 @@ connection = db.open_connection(database)
 db.create_tables(connection)
 connection.close()
 
+@app.route('/checkUsername', methods = ['POST'])
+def check_username():
+    pass
+
 @app.route('/signUp', methods = ['POST'])
 def sign_up_user():
     # Retrieving sign up data from the client
@@ -35,8 +39,8 @@ def sign_up_user():
     # Checks if the username already exists
     if db.check_if_username_exists(connection, username):
         connection.close()
-        return {'message': 'Username already exists'}, 409
-        
+        return str(409), 409
+
     else:
         # Generate a unique user id string
         user_id = str(uuid4())
@@ -49,7 +53,7 @@ def sign_up_user():
 
         connection.close()
 
-        return {'message': 'Sign up successful'}, 200
+        return str(200), 200
 
 @app.route('/signIn', methods = ['POST'])
 def sign_in_user():

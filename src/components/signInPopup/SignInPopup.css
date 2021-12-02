@@ -95,6 +95,19 @@ h2 {
     gap: 1rem;
 }
 
+.label-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.error-label {
+    text-transform: uppercase;
+    font-size: .75rem;
+    margin-bottom: 0;
+    color: #EF233C;
+}
+
 .sign-in-form input,
 .sign-up-form input {
     padding: 1rem;
@@ -109,8 +122,8 @@ h2 {
     border-color: #2192FA;
 }
 
-.sign-in-form button,
-.sign-up-form button {
+.sign-in-form-container button,
+.sign-up-form-container button {
     padding: 1rem;
     background-color: #2192FA;
     border: transparent;
@@ -119,8 +132,8 @@ h2 {
     border-radius: 3rem;;
 }
 
-.sign-in-form button:hover,
-.sign-up-form button:hover {
+.sign-in-form-container button:hover,
+.sign-up-form-container button:hover {
     background-color: #1f82df;
     cursor: pointer;
 }

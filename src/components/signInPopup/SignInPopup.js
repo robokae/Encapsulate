@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ReactComponent as SocialNetworking } from './socialNetworking.svg';
@@ -14,13 +14,12 @@ const signInUser = (username, password) => {
 }
 
 function SignInForm(props) {
-    const { setForm } = props;
+    const { setForm, closePopup } = props;
 
     // getting and setting the user login credentials
     const [loginUsername, setLoginUsername] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
 
-    // const navigate = useNavigate();
     return (
         <div className="sign-in-form-container">
             <h2>Sign Into Account</h2>
@@ -53,20 +52,29 @@ function SignInForm(props) {
 }
 
 function SignUpForm(props) {
-    const { setForm } = props;
+    const { setForm, closePopup, loggedIn } = props;
 
     const [signUpUsername, setSignUpUsername] = useState("");
     const [signUpEmail, setSignUpEmail] = useState("");
     const [signUpPassword, setSignUpPassword] = useState("");
     const [signUpConfirmPassword, setSignUpConfirmPassword] = useState("");
 
+    const [signUpPasswordMatches, setSignUpPasswordMatches] = useState(true);
+    const [signUpPasswordLengthIsGood, setSignUpPasswordLengthIsGood] = useState(true);
+
+    const navigate = useNavigate();
+
     const signUpUser = e => {
+        // Reset the state each time the button is clicked
+        setSignUpPasswordMatches(true);
+        setSignUpPasswordLengthIsGood(true);
+
         if (signUpPassword !== signUpConfirmPassword) {
-            alert("Passwords do not match");
+            setSignUpPasswordMatches(false); 
             return false;
         }
         else if (signUpPassword.length < 8) {
-            alert("Password must be 8 characters or longer");
+            setSignUpPasswordLengthIsGood(false);
             return false;
         }
     
@@ -80,7 +88,14 @@ function SignUpForm(props) {
 
         console.log(signUpInfo);
     
-        axios.post(signUpUrl, signUpInfo);
+        axios.post(signUpUrl, signUpInfo)
+            .then(res => {
+                if (res.status === 200) {
+                    loggedIn();
+                    closePopup();
+                    navigate("/home");
+                } 
+            });
     }
 
     return (
@@ -91,13 +106,17 @@ function SignUpForm(props) {
                 className="sign-up-form" 
                 autoComplete="false"
             >
-                <input 
-                    type="text" 
-                    placeholder="Username" 
-                    autoComplete="false" 
-                    onChange={(e) => setSignUpUsername(e.target.value)}
-                    required 
-                />
+                <div className="label-input-group">
+                    {/* <label className="error-label" htmlFor="username">Username already exists</label> */}
+                    <input 
+                        type="text" 
+                        id="username"
+                        placeholder="Username" 
+                        autoComplete="false" 
+                        onChange={(e) => setSignUpUsername(e.target.value)}
+                        required 
+                    />
+                </div>
                 <input 
                     type="text" 
                     placeholder="Email address" 
@@ -105,29 +124,42 @@ function SignUpForm(props) {
                     onChange={(e) => setSignUpEmail(e.target.value)}
                     required 
                 />
-                <input 
-                    type="password" 
-                    placeholder="Password" 
-                    autoComplete="false" 
-                    onChange={(e) => setSignUpPassword(e.target.value)}
-                    required 
-                />
-                <input 
-                    type="password" 
-                    placeholder="Confirm password" 
-                    autoComplete="false" 
-                    onChange={(e) => setSignUpConfirmPassword(e.target.value)}
-                    required 
-                />
-                <button type="button" onClick={signUpUser}>Create Account</button>
-                <p>Already have an account? Sign in <span onClick={setForm} className="sign-up-link">here</span></p>
+                <div className="label-input-group">
+                    {/* Display error label when the password is less than 8 characters */}
+                    {signUpPasswordLengthIsGood
+                        ? null
+                        : <label className="error-label" htmlFor="confirm-password">Password must be at least 8 characters</label>}
+                    <input 
+                        type="password" 
+                        placeholder="Password" 
+                        autoComplete="false" 
+                        onChange={(e) => setSignUpPassword(e.target.value)}
+                        required 
+                    />
+                </div>
+                <div className="label-input-group">
+                    {/* Display error label when the passwords do not match */}
+                    {signUpPasswordMatches
+                        ? null
+                        : <label className="error-label" htmlFor="confirm-password">Password does not match</label>}
+                    <input 
+                        type="password" 
+                        id="confirm-password"
+                        placeholder="Confirm password" 
+                        autoComplete="false" 
+                        onChange={(e) => setSignUpConfirmPassword(e.target.value)}
+                        required 
+                    />
+                </div>
             </form>
+            <button type="button" onClick={signUpUser}>Create Account</button>
+            <p>Already have an account? Sign in <span onClick={setForm} className="sign-up-link">here</span></p>
         </div>
     );
 }
 
 function SignInPopup(props) {
-    const { closePopup } = props;
+    const { closePopup, login } = props;
 
     // form state
     const [showForm, setForm] = useState('signIn');
@@ -146,8 +178,8 @@ function SignInPopup(props) {
                     <FontAwesomeIcon className="close-button" icon={faTimes} onClick={closePopup}/>
                     {/* Determining which form to display (default is sign in form) */}
                     {showForm === "signIn"
-                        ? <SignInForm setForm={() => setForm("signUp")} />
-                        : <SignUpForm setForm={() => setForm("signIn")} />
+                        ? <SignInForm setForm={() => setForm("signUp")} closePopup={closePopup} loggedIn={login} />
+                        : <SignUpForm setForm={() => setForm("signIn")} closePopup={closePopup} loggedIn={login} />
                     }
                 </div>
             </div>
