@@ -25,7 +25,7 @@ function Landing() {
                 <div className="bottomDiv-words">
                     <div className="bottomDiv-words-container">
                         <h1>About Encapsulate</h1>
-                        <h3>Encapsulate is a free-form application where you can create journal entries about whatever you want, and with a 500 word limit you are able to make a more complex and succinct point, story, or event</h3>
+                        <h3>Encapsulate is a free-form application where you can create journal entries about whatever you want, and with a 500 word limit you are able to make a more complex and succinct point, story, or event.</h3>
                     </div>
                 </div>
             </div>

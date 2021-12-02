@@ -11,15 +11,17 @@ drop table Topics;
 drop table PostsWithTopics;
 drop table Followers;
 
+
 -- ==================
 -- CREATE TABLES
 -- ==================
 
 create table Users (
-    user_id int primary key,
-    user_name varchar(100) not null,
-    user_bio varchar(500) not null,
-    user_is_verified boolean not null
+    user_id int primary key autoincrement,
+    user_name varchar(255) not null unique,
+    user_email varchar(255) not null unique,
+    user_password varchar(255) not null,
+    user_bio varchar(1000) not null
 );
 
 create table Posts (

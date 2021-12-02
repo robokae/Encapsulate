@@ -1,4 +1,5 @@
-import { Routes, Route, Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import Navbar from './components/Navbar.js';
 import Landing from './pages/landing/Landing.js';
@@ -9,10 +10,34 @@ import SearchResults from './pages/searchResults/SearchResults.js';
 
 import SignInPopup from './components/signInPopup/SignInPopup.js';
 
+// const displaySignInPopup = () => {
+//   console.log("Sign in");
+// }
+
 function App() {
+  // state for keeping track of whether user is logged in or not
+  const [isLoggedIn, setLoginState] = useState(false);
+
+  // state for sign in popup
+  const [popupIsDisplayed, setPopupState] = useState(false);
+
+  // change sign in popup state when the user clicks the sign in button
+  // or closes the popup
+  const togglePopup = () => 
+    setPopupState(!popupIsDisplayed);
+
+  // change login state when the user successfully signs in
+  const login = () => 
+    setLoginState(true);
+
   return (
     <div className="App">
-      <Navbar />
+      {/* Show sign in popup only when sign in button is clicked */}
+      {popupIsDisplayed
+        ? <SignInPopup closePopup={togglePopup} login={login}/>
+        : null
+      }
+      <Navbar isLoggedIn={isLoggedIn} displayPopup={togglePopup} />
       <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/home" element={<Home />} />
