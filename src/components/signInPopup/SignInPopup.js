@@ -61,20 +61,26 @@ function SignUpForm(props) {
     const [signUpConfirmPassword, setSignUpConfirmPassword] = useState("");
 
     const signUpUser = e => {
-        e.preventDefault();
+        if (signUpPassword !== signUpConfirmPassword) {
+            alert("Passwords do not match");
+            return false;
+        }
+        else if (signUpPassword.length < 8) {
+            alert("Password must be 8 characters or longer");
+            return false;
+        }
     
         let signUpUrl = url + "signUp";
         
-        const signInInfo = {
+        const signUpInfo = {
             username: signUpUsername,
             email: signUpEmail,
-            password: signUpPassword,
-            confirmPassword: signUpConfirmPassword
+            password: signUpPassword
         };
 
-        console.log(signInInfo);
+        console.log(signUpInfo);
     
-        axios.post(signUpUrl, signInInfo);
+        axios.post(signUpUrl, signUpInfo);
     }
 
     return (
@@ -84,7 +90,6 @@ function SignUpForm(props) {
                 action="" 
                 className="sign-up-form" 
                 autoComplete="false"
-                onSubmit={signUpUser}
             >
                 <input 
                     type="text" 
@@ -114,7 +119,7 @@ function SignUpForm(props) {
                     onChange={(e) => setSignUpConfirmPassword(e.target.value)}
                     required 
                 />
-                <button type="submit">Create Account</button>
+                <button type="button" onClick={signUpUser}>Create Account</button>
                 <p>Already have an account? Sign in <span onClick={setForm} className="sign-up-link">here</span></p>
             </form>
         </div>
