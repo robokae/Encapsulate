@@ -8,43 +8,63 @@ import './SignInPopup.css';
 
 let url = "http://localhost:5000/";
 
-const signInUser = (username, password) => {
-    console.log(username);
-    console.log(password);
-}
 
 function SignInForm(props) {
-    const { setForm, closePopup } = props;
+    const { setForm, closePopup, loggedIn } = props;
+
+    const navigate = useNavigate();
 
     // getting and setting the user login credentials
-    const [loginUsername, setLoginUsername] = useState("");
-    const [loginPassword, setLoginPassword] = useState("");
+    const [signInUsername, setSignInUsername] = useState("");
+    const [signInPassword, setSignInPassword] = useState("");
+
+    const signInUser = e => {
+        // Prevent page from refreshing upon submit
+        e.preventDefault();
+
+        let signInUrl = url + "signIn";
+
+        const signInData = {
+            username: signInUsername,
+            password: signInPassword   
+        };
+
+        // Send sign in data to back end
+        axios.post(signInUrl, signInData)
+            .then(res => {
+                if (res.status === 200) {
+                    closePopup();
+                    loggedIn();
+                    navigate("/home");
+                }
+            });
+    };
 
     return (
         <div className="sign-in-form-container">
             <h2>Sign Into Account</h2>
-            <form className="sign-in-form" action="" autoComplete="false">
+            <form 
+                className="sign-in-form" 
+                action="" 
+                autoComplete="false"
+                onSubmit={signInUser}
+            >
                 <input 
                     type="text" 
                     placeholder="Username" 
                     autoComplete="false" 
                     // update username as user types it in the input
-                    onChange={(e) => setLoginUsername(e.target.value)}
-                    required
+                    onChange={(e) => setSignInUsername(e.target.value)}
                 />
                 <input 
                     type="password" 
                     placeholder="Password" 
                     autoComplete="false" 
                     // update password as user types it in the input
-                    onChange={(e) => setLoginPassword(e.target.value)}
-                    required/>
+                    onChange={(e) => setSignInPassword(e.target.value)}
+                />
                 <a className="forgot-password-link" href="/">Forgot Password?</a>
-                <button 
-                    onClick={(e) => signInUser(e)}
-                >
-                    Sign in
-                </button>
+                <button type="submit">Sign in</button>
                 <p>Don't have an account? Create one <span onClick={setForm} className="sign-in-link">here</span></p>
             </form>
         </div>
@@ -59,24 +79,10 @@ function SignUpForm(props) {
     const [signUpPassword, setSignUpPassword] = useState("");
     const [signUpConfirmPassword, setSignUpConfirmPassword] = useState("");
 
-    const [signUpPasswordMatches, setSignUpPasswordMatches] = useState(true);
-    const [signUpPasswordLengthIsGood, setSignUpPasswordLengthIsGood] = useState(true);
-
     const navigate = useNavigate();
 
     const signUpUser = e => {
-        // Reset the state each time the button is clicked
-        setSignUpPasswordMatches(true);
-        setSignUpPasswordLengthIsGood(true);
-
-        if (signUpPassword !== signUpConfirmPassword) {
-            setSignUpPasswordMatches(false); 
-            return false;
-        }
-        else if (signUpPassword.length < 8) {
-            setSignUpPasswordLengthIsGood(false);
-            return false;
-        }
+        e.preventDefault();
     
         let signUpUrl = url + "signUp";
         
@@ -85,14 +91,13 @@ function SignUpForm(props) {
             email: signUpEmail,
             password: signUpPassword
         };
-
-        console.log(signUpInfo);
     
+        // Send sign up data to back end
         axios.post(signUpUrl, signUpInfo)
             .then(res => {
                 if (res.status === 200) {
-                    loggedIn();
                     closePopup();
+                    loggedIn();
                     navigate("/home");
                 } 
             });
@@ -105,6 +110,7 @@ function SignUpForm(props) {
                 action="" 
                 className="sign-up-form" 
                 autoComplete="false"
+                onSubmit={signUpUser}
             >
                 <div className="label-input-group">
                     {/* <label className="error-label" htmlFor="username">Username already exists</label> */}
@@ -114,7 +120,6 @@ function SignUpForm(props) {
                         placeholder="Username" 
                         autoComplete="false" 
                         onChange={(e) => setSignUpUsername(e.target.value)}
-                        required 
                     />
                 </div>
                 <input 
@@ -122,38 +127,35 @@ function SignUpForm(props) {
                     placeholder="Email address" 
                     autoComplete="false" 
                     onChange={(e) => setSignUpEmail(e.target.value)}
-                    required 
                 />
                 <div className="label-input-group">
                     {/* Display error label when the password is less than 8 characters */}
-                    {signUpPasswordLengthIsGood
+                    {/* {signUpPasswordLengthIsGood
                         ? null
-                        : <label className="error-label" htmlFor="confirm-password">Password must be at least 8 characters</label>}
+                        : <label className="error-label" htmlFor="confirm-password">Password must be at least 8 characters</label>} */}
                     <input 
                         type="password" 
                         placeholder="Password" 
                         autoComplete="false" 
                         onChange={(e) => setSignUpPassword(e.target.value)}
-                        required 
                     />
                 </div>
                 <div className="label-input-group">
                     {/* Display error label when the passwords do not match */}
-                    {signUpPasswordMatches
+                    {/* {signUpPasswordMatches
                         ? null
-                        : <label className="error-label" htmlFor="confirm-password">Password does not match</label>}
+                        : <label className="error-label" htmlFor="confirm-password">Password does not match</label>} */}
                     <input 
                         type="password" 
                         id="confirm-password"
                         placeholder="Confirm password" 
                         autoComplete="false" 
                         onChange={(e) => setSignUpConfirmPassword(e.target.value)}
-                        required 
                     />
                 </div>
+                <button type="submit">Create Account</button>
+                <p>Already have an account? Sign in <span onClick={setForm} className="sign-up-link">here</span></p>
             </form>
-            <button type="button" onClick={signUpUser}>Create Account</button>
-            <p>Already have an account? Sign in <span onClick={setForm} className="sign-up-link">here</span></p>
         </div>
     );
 }

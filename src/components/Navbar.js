@@ -18,7 +18,7 @@ function Navbar(props) {
                 <div className="navbar-right">
                     <input className="search-bar" placeholder="Search..." autoComplete="off" />
                     {isLoggedIn
-                        ? <button class="log-out-button">Log out</button>
+                        ? <button className="log-out-button">Log out</button>
                         : <button 
                             className="sign-in-button"
                             onClick={props.displayPopup}

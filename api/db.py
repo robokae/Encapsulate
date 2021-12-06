@@ -58,5 +58,36 @@ def check_if_username_exists(connection, username):
     except Error as e:
         print(e)
 
+def get_user(connection, username):
+    try:
+        sql = "select * from Users where user_name = '" + username + "'"
+
+        cursor = connection.cursor()
+        user_id, username, user_email, user_password = list(cursor.execute(sql).fetchone())
+
+        user_dict = {
+            'user_id': user_id,
+            'username': username,
+            'user_email': user_email,
+            'user_password': user_password
+        }
+
+        return user_dict
+
+    except Error as e:
+        print(e)
+
+def get_hashed_password(connection, username):
+    try:
+        sql = "select user_password from Users where user_name = '" + username + "'"
+
+        cursor = connection.cursor()
+        hashed_password = list(cursor.execute(sql).fetchone())[0]
+
+        return hashed_password
+    except Error as e:
+        print(e)
+        
+
 
 
