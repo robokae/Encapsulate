@@ -1,32 +1,34 @@
+import { useState } from 'react';
 import './Create.css';
 
 function Create() {
-    return (
-        <div className="create">
-            <div className="postIt">
-                <div className="header">
-                    <h2>Create Encapsulation</h2>
-                </div>
-                <div className="post">
-                    <button>Post Encapsulation</button>
-                </div>
-            </div>
-            <div className="encaps-post">
-                <div className="text-container">
-                    <div className="title">
-                        <input type="text" className="title-text" placeholder="Give your post a title" id="name" name="name">
-                        </input>
-                    </div>
-                    <div className="post-and-count">
-                        <div className="post-text">
-                            <input type="text" className="title-text" placeholder="Start typing to Encapsulate..." id="name" name="name"></input></div>
-                        <div className="word-count">/ 500 words</div>
-                    </div>
-                    <div className="topic">
-                        <input type="text" className="topic-text" placeholder=" Add topic (optional)" id="name" name="name"></input>
-                    </div>
-                </div>
+    const [postText, setPostText] = useState("");
 
+    return (
+        <div className="create-post-container">
+            <div className="create-post-top">
+                <h2 className="heading">Create Encapsulation</h2>
+                <button className="post-button">Post Encapsulation</button>
+            </div>
+            <div className="create-post-bottom">
+                <div className="form-container">
+                    <input type="text" className="post-title-input" placeholder="Give your post a title" name="post-title"/>
+
+                    <div className="post-text-container">
+                        <textarea 
+                            type="text" 
+                            className="post-input" 
+                            placeholder="Start typing to Encapsulate..." 
+                            name="post"
+                            onChange={e => setPostText(e.target.value)}
+                        />
+                        <div className="word-count-container">
+                            <p className="word-count">{postText === "" ? 0 : postText.split(" ").length}/500 words</p>
+                        </div>
+                    </div>
+
+                    <input type="text" className="topic-input" placeholder="Add topic (optional)" name="topic"></input>
+                </div>
             </div>
         </div>
     );
