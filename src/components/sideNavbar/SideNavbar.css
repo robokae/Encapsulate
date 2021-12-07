@@ -1,0 +1,47 @@
+.side-navbar,
+.nav-links-container {
+    height: 10vh;
+    width: 10vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.side-navbar {
+    position: absolute;
+    left: 10%;
+    top: 15%;
+    gap: 2rem;
+}
+
+.create-button-container {
+    width: 100%;
+}
+
+.create-button {
+    width: 100%;
+}
+
+.create-button:hover {
+    cursor: pointer;
+}
+
+.create-button:active {
+    transform: scale(.98);
+    transition: all .1s ease-in-out;
+}
+
+.nav-links-container {
+    
+}
+
+.nav-links-container button {
+    background-color: transparent;
+    color: #758694;
+    text-align: left;
+}
+
+.nav-links-container button:hover {
+    background-color: #E0EDFA;
+    transition: all .1s ease-in-out;
+    cursor: pointer;
+}

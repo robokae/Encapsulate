@@ -6,7 +6,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ReactComponent as SocialNetworking } from './socialNetworking.svg';
 import './SignInPopup.css';
 
-let url = "http://localhost:5000/";
+// let url = "http://localhost:5000/";
 
 
 function SignInForm(props) {
@@ -22,7 +22,7 @@ function SignInForm(props) {
         // Prevent page from refreshing upon submit
         e.preventDefault();
 
-        let signInUrl = url + "signIn";
+        let url = "/signIn";
 
         const signInData = {
             username: signInUsername,
@@ -30,7 +30,7 @@ function SignInForm(props) {
         };
 
         // Send sign in data to back end
-        axios.post(signInUrl, signInData)
+        axios.post(url, signInData)
             .then(res => {
                 if (res.status === 200) {
                     closePopup();
@@ -84,7 +84,7 @@ function SignUpForm(props) {
     const signUpUser = e => {
         e.preventDefault();
     
-        let signUpUrl = url + "signUp";
+        let url = "/signUp";
         
         const signUpInfo = {
             username: signUpUsername,
@@ -93,7 +93,7 @@ function SignUpForm(props) {
         };
     
         // Send sign up data to back end
-        axios.post(signUpUrl, signUpInfo)
+        axios.post(url, signUpInfo)
             .then(res => {
                 if (res.status === 200) {
                     closePopup();

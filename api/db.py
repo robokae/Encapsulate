@@ -21,7 +21,7 @@ def create_tables(connection):
     try:
         sql = """create table Users (
                     user_id varchar(255) primary key,
-                    user_name varchar(255) not null,
+                    username varchar(255) not null,
                     user_email varchar(255) not null,
                     user_password varchar(255) not null)"""
 
@@ -45,7 +45,7 @@ def add_user(connection, user_id, username, email, hashed_password):
 
 def check_if_username_exists(connection, username):
     try:
-        sql = "select user_name from Users where user_name = '" + username + "'"
+        sql = "select username from Users where username = '" + username + "'"
 
         cursor = connection.cursor()
         rows = cursor.execute(sql).fetchall()
@@ -60,7 +60,7 @@ def check_if_username_exists(connection, username):
 
 def get_user(connection, username):
     try:
-        sql = "select * from Users where user_name = '" + username + "'"
+        sql = "select * from Users where username = '" + username + "'"
 
         cursor = connection.cursor()
         user_id, username, user_email, user_password = list(cursor.execute(sql).fetchone())
@@ -79,7 +79,7 @@ def get_user(connection, username):
 
 def get_hashed_password(connection, username):
     try:
-        sql = "select user_password from Users where user_name = '" + username + "'"
+        sql = "select user_password from Users where username = '" + username + "'"
 
         cursor = connection.cursor()
         hashed_password = list(cursor.execute(sql).fetchone())[0]
