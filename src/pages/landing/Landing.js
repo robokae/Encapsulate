@@ -1,4 +1,3 @@
-// import { useLocation } from 'react-router-dom';
 import Home from '../home/Home.js';
 import { ReactComponent as SocialFriends } from './social-friends.svg';
 import { ReactComponent as SocialSerenity } from './social-serenity.svg';
@@ -45,9 +44,11 @@ function Welcome() {
 function Landing() {
     let token = getToken();
 
-    return token === null 
-        ? <Welcome /> 
-        : <Home />;
+    if (token === null) {
+        return <Welcome />;
+    } 
+
+    return <Home />;
 }
 
 export default Landing;

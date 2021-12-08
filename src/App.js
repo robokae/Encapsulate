@@ -1,20 +1,19 @@
 import { useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
-import './App.css';
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import { UserContext } from './UserContext.js';
 import Navbar from './components/Navbar.js';
 import Landing from './pages/landing/Landing.js';
 import Home from './pages/home/Home.js';
 import Create from './pages/create/Create.js';
 import UserProfile from './pages/userProfile/UserProfile.js';
 import SearchResults from './pages/searchResults/SearchResults.js';
-
 import SignInPopup from './components/signInPopup/SignInPopup.js';
-
-// const displaySignInPopup = () => {
-//   console.log("Sign in");
-// }
+import './App.css';
 
 function App() {
+  const navigate = useNavigate();
+  const [signedInUser, setSignedInUser] = useState(null);
+
   // state for keeping track of whether user is logged in or not
   const [isLoggedIn, setLoginState] = useState(false);
 
@@ -27,8 +26,10 @@ function App() {
     setPopupState(!popupIsDisplayed);
 
   // change login state when the user successfully signs in
-  const login = () => 
+  const login = (username) => {
+    setSignedInUser(username);
     setLoginState(true);
+  }
 
   const [token, saveToken] = useState(null);
 
@@ -42,9 +43,9 @@ function App() {
   const logOutUser = () => {
     setLoginState(false);
     sessionStorage.removeItem("token");
+    navigate("/");
   }
   
-
   return (
     <div className="App">
       {/* Show sign in popup only when sign in button is clicked */}
@@ -61,15 +62,17 @@ function App() {
         displayPopup={togglePopup} 
         logOut={logOutUser} 
       />
-      <Routes>
-          <Route path="/" element={<Landing />} />
-          {/* <Route path="/home" element={<Home />} /> */}
-          <Route path="/create" element={<Create />} />
-          <Route path="/userProfile" element={<UserProfile />} />
-          <Route path="/searchResults" element={<SearchResults />} />
+      <UserContext.Provider value={signedInUser}>
+        <Routes>
+            <Route path="/" element={<Landing />} />
+            {/* <Route path="/home" element={<Home />} /> */}
+            <Route path="/create" element={<Create />} />
+            <Route path="/userProfile" element={<UserProfile />} />
+            <Route path="/searchResults" element={<SearchResults />} />
 
-          <Route path="/signIn" element={<SignInPopup />} />
-      </Routes> 
+            <Route path="/signIn" element={<SignInPopup />} />
+        </Routes> 
+      </UserContext.Provider>
     </div>
   );
 }

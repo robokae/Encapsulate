@@ -38,7 +38,7 @@ function SignInForm(props) {
             .then(res => {
                 if (res.status === 200) {
                     closePopup();
-                    loggedIn();
+                    loggedIn(signInUsername);
                     setToken(res.data.access_token);
                     navigate("/");
                 }
