@@ -82,13 +82,30 @@ def sign_in_user():
 @app.route('/createPost', methods = ['POST'])
 def create_post():
     post_title = request.json.get('title')
+    post_author = request.json.get('author')
+    post_date = request.json.get('date')
     post_text = request.json.get('text')
     post_topic = request.json.get('topic')
 
+    post_id = str(uuid4())
+
+    post_data = [
+        post_id,
+        post_title, 
+        post_author, 
+        post_date,
+        post_text,
+        post_topic
+    ]
+
+    print(post_data)
+
     # Add post to database
     connection = db.open_connection(database)
-    db.add_post(connection)
+    db.add_post(connection, post_data)
     connection.close()
+
+    return 'Post'
 
 
 if __name__ == '__main__':

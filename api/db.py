@@ -28,12 +28,12 @@ def create_tables(connection):
         connection.execute(sql)
 
         sql = """create table Posts (
-                    post_id int primary key,
+                    post_id varchar(255) primary key,
                     post_title varchar(100) not null,
                     post_author_id int not null,
                     post_date date not null,
-                    post_topic_id int,
-                    post_text varchar(1000) not null)"""
+                    post_text varchar(1000) not null,
+                    post_topic_id int)"""  
 
         connection.execute(sql)
 
@@ -84,7 +84,20 @@ def get_user(connection, username):
         print(e)
 
 def add_post(connection, post_data):
-    pass
+    post_id, post_title, post_author, post_date, post_text, post_topic = post_data
+
+    try:
+        sql = 'insert into Posts values (?, ?, ?, ?, ?, ?)'
+        args = [post_id, post_title, post_author, post_date, post_text, post_topic]
+
+        cursor = connection.cursor()
+        cursor.execute(sql, args)
+
+        connection.commit()
+
+    except Error as e:
+        connection.rollback()
+        print(e)
 
 
 

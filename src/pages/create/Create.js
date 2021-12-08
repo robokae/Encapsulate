@@ -1,11 +1,14 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import './Create.css';
 
 function Create() {
     const [postTitle, setPostTitle] = useState("");
     const [postText, setPostText] = useState("");
     const [postTopic, setPostTopic] = useState("");
+
+    const location = useLocation();
 
     const handleSetPostTitle = e =>
         setPostTitle(e.target.value)
@@ -14,18 +17,25 @@ function Create() {
         setPostText(e.target.value)
 
     const handleSetPostTopic = e => 
-        setPostTopic(e.target.vaue)
+        setPostTopic(e.target.value)
 
     const handleCreatePost = () => {
         let url = "/createPost";
 
+        let postAuthor = location.state.username;
+        let date = new Date();
+
+        let postDate = `${date.getFullYear()}-${date.getMonth()}-${date.getDate().toString().padStart(2, '0')}`;
+
+        console.log(postTopic);
+        
         const postData = {
             title: postTitle,
+            author: postAuthor,
+            date: postDate,
             text: postText,
             topic: postTopic
         };
-
-        console.log(postData);
 
         axios.post(url, postData);
     }
@@ -60,7 +70,7 @@ function Create() {
                             onChange={handleSetPostText}
                         />
                         <div className="word-count-container">
-                            <p className="word-count">{postText === "" ? 0 : postText.split(" ").length}/500 words</p>
+                            <p className="word-count">{postText === "" ? 0 : postText.length}/1000 characters</p>
                         </div>
                     </div>
 
