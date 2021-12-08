@@ -100,16 +100,48 @@ h1{
     padding: 0;
     color:#0B1319;
     font-family: 'Poppins', Arial, Helvetica, sans-serif;
-    font-size: 64px;
+    font-size: 3.5rem;
     font-weight: bold;
     line-height: 5rem;
 }
 
 h3{
     color:#758694;
-    font-size: 20px;
+    font-size: 1.5rem;
     font-weight: normal;
     
+}
+
+@media screen and (max-width: 1000px) {
+    h1 {
+        font-size: 2rem;
+        line-height: 3rem;
+    }
+
+    h3 {
+        font-size: 1rem;
+    }
+
+    .topLanding,
+    .bottomLanding {
+        flex-direction: column-reverse;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .topDiv-words,
+    .bottomDiv-words {
+        height: 50%;
+        width: 90%;
+        text-align: center;
+    }
+
+    .topDiv-image,
+    .bottomDiv-image {
+        width: 70%;
+        height: 50%;
+    }
+
 }
 
 

@@ -157,3 +157,19 @@ h2 {
     text-decoration: underline;
     cursor: pointer;
 }
+
+@media screen and (max-width: 1000px) {
+    .sign-in-popup-left {
+        display: none;
+    }
+
+    .sign-in-popup-right {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .sign-in-popup {
+        width: 85vw;
+    }
+}
