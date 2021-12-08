@@ -1,8 +1,17 @@
+// import { useLocation } from 'react-router-dom';
+import Home from '../home/Home.js';
 import { ReactComponent as SocialFriends } from './social-friends.svg';
 import { ReactComponent as SocialSerenity } from './social-serenity.svg';
 import './Landing.css';
 
-function Landing() {
+const getToken = () => {
+    let tokenObject = JSON.parse(sessionStorage.getItem("token"));
+    
+    return tokenObject
+}
+
+function Welcome() {
+
     return (
         <div className="landing">
             <div className="topLanding">
@@ -31,6 +40,14 @@ function Landing() {
             </div>
         </div> 
     );
+}
+
+function Landing() {
+    let token = getToken();
+
+    return token === null 
+        ? <Welcome /> 
+        : <Home />;
 }
 
 export default Landing;

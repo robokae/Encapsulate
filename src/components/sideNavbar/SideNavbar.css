@@ -17,8 +17,18 @@
     width: 100%;
 }
 
+.create-button,
+.nav-links-container button {
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+}
+
 .create-button {
     width: 100%;
+    background-color: #2192FA;
+    color: #F8F8F8;
+    border: none;
+    border-radius: .5rem;
+    padding: .75rem;
 }
 
 .create-button:hover {
@@ -31,12 +41,17 @@
 }
 
 .nav-links-container {
-    
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
 }
 
 .nav-links-container button {
     background-color: transparent;
     color: #758694;
+    padding: .75rem;
+    border: none;
+    border-radius: .5rem;
     text-align: left;
 }
 

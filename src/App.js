@@ -30,17 +30,40 @@ function App() {
   const login = () => 
     setLoginState(true);
 
+  const [token, saveToken] = useState(null);
+
+  const setToken = (token) => {
+    // Convert token to string and store in session storage
+    let tokenString = JSON.stringify(token);
+    sessionStorage.setItem("token", tokenString);
+    saveToken(token);
+  }
+
+  const logOutUser = () => {
+    setLoginState(false);
+    sessionStorage.removeItem("token");
+  }
+  
+
   return (
     <div className="App">
       {/* Show sign in popup only when sign in button is clicked */}
       {popupIsDisplayed
-        ? <SignInPopup closePopup={togglePopup} login={login}/>
+        ? <SignInPopup 
+            closePopup={togglePopup} 
+            login={login}
+            setToken={setToken}
+          />
         : null
       }
-      <Navbar isLoggedIn={isLoggedIn} displayPopup={togglePopup} />
+      <Navbar 
+        isLoggedIn={isLoggedIn} 
+        displayPopup={togglePopup} 
+        logOut={logOutUser} 
+      />
       <Routes>
           <Route path="/" element={<Landing />} />
-          <Route path="/home" element={<Home />} />
+          {/* <Route path="/home" element={<Home />} /> */}
           <Route path="/create" element={<Create />} />
           <Route path="/userProfile" element={<UserProfile />} />
           <Route path="/searchResults" element={<SearchResults />} />

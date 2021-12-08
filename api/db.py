@@ -26,6 +26,19 @@ def create_tables(connection):
                     user_password varchar(255) not null)"""
 
         connection.execute(sql)
+
+        sql = """create table Posts (
+                    post_id int primary key,
+                    post_title varchar(100) not null,
+                    post_author_id int not null,
+                    post_date date not null,
+                    post_topic_id int,
+                    post_text varchar(1000) not null)"""
+
+        connection.execute(sql)
+
+        
+
         connection.commit()
 
     except Error as e:
@@ -43,50 +56,38 @@ def add_user(connection, user_id, username, email, hashed_password):
         connection.rollback()
         print(e)
 
-def check_if_username_exists(connection, username):
-    try:
-        sql = "select username from Users where username = '" + username + "'"
-
-        cursor = connection.cursor()
-        rows = cursor.execute(sql).fetchall()
-
-        if len(rows) > 0:
-            return True
-        
-        return False
-
-    except Error as e:
-        print(e)
 
 def get_user(connection, username):
     try:
         sql = "select * from Users where username = '" + username + "'"
 
         cursor = connection.cursor()
-        user_id, username, user_email, user_password = list(cursor.execute(sql).fetchone())
 
-        user_dict = {
-            'user_id': user_id,
-            'username': username,
-            'user_email': user_email,
-            'user_password': user_password
-        }
+        query_result = cursor.execute(sql).fetchone()
 
-        return user_dict
+        # Returns user info if username exists in database
+        if query_result is not None:
+            user_id, username, user_email, user_password = list(query_result)
+
+            user_dict = {
+                'user_id': user_id,
+                'username': username,
+                'user_email': user_email,
+                'user_password': user_password
+            }
+
+            return user_dict
+            
+        return None
 
     except Error as e:
         print(e)
 
-def get_hashed_password(connection, username):
-    try:
-        sql = "select user_password from Users where username = '" + username + "'"
+def add_post(connection, post_data):
+    pass
 
-        cursor = connection.cursor()
-        hashed_password = list(cursor.execute(sql).fetchone())[0]
 
-        return hashed_password
-    except Error as e:
-        print(e)
+
         
 
 

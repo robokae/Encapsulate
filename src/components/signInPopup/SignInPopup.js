@@ -10,7 +10,11 @@ import './SignInPopup.css';
 
 
 function SignInForm(props) {
-    const { setForm, closePopup, loggedIn } = props;
+    const { 
+        setForm, 
+        closePopup, 
+        loggedIn, 
+        setToken } = props;
 
     const navigate = useNavigate();
 
@@ -35,7 +39,8 @@ function SignInForm(props) {
                 if (res.status === 200) {
                     closePopup();
                     loggedIn();
-                    navigate("/home");
+                    setToken(res.data.access_token);
+                    navigate("/");
                 }
             });
     };
@@ -79,6 +84,18 @@ function SignUpForm(props) {
     const [signUpPassword, setSignUpPassword] = useState("");
     const [signUpConfirmPassword, setSignUpConfirmPassword] = useState("");
 
+    const handleSetSignUpUsername = e =>
+        setSignUpUsername(e.target.value)
+
+    const handleSetSignUpEmail = e =>
+        setSignUpEmail(e.target.value)
+
+    const handleSetSignUpPassword = e => 
+        setSignUpPassword(e.target.value)
+
+    const handleSetSignUpConfirmPassword = e =>
+        setSignUpConfirmPassword(e.target.value)
+
     const navigate = useNavigate();
 
     const signUpUser = e => {
@@ -97,8 +114,7 @@ function SignUpForm(props) {
             .then(res => {
                 if (res.status === 200) {
                     closePopup();
-                    loggedIn();
-                    navigate("/home");
+                    navigate("/");
                 } 
             });
     }
@@ -119,14 +135,14 @@ function SignUpForm(props) {
                         id="username"
                         placeholder="Username" 
                         autoComplete="false" 
-                        onChange={(e) => setSignUpUsername(e.target.value)}
+                        onChange={handleSetSignUpUsername}
                     />
                 </div>
                 <input 
                     type="text" 
                     placeholder="Email address" 
                     autoComplete="false" 
-                    onChange={(e) => setSignUpEmail(e.target.value)}
+                    onChange={handleSetSignUpEmail}
                 />
                 <div className="label-input-group">
                     {/* Display error label when the password is less than 8 characters */}
@@ -137,7 +153,7 @@ function SignUpForm(props) {
                         type="password" 
                         placeholder="Password" 
                         autoComplete="false" 
-                        onChange={(e) => setSignUpPassword(e.target.value)}
+                        onChange={handleSetSignUpPassword}
                     />
                 </div>
                 <div className="label-input-group">
@@ -150,7 +166,7 @@ function SignUpForm(props) {
                         id="confirm-password"
                         placeholder="Confirm password" 
                         autoComplete="false" 
-                        onChange={(e) => setSignUpConfirmPassword(e.target.value)}
+                        onChange={handleSetSignUpConfirmPassword}
                     />
                 </div>
                 <button type="submit">Create Account</button>
@@ -161,7 +177,7 @@ function SignUpForm(props) {
 }
 
 function SignInPopup(props) {
-    const { closePopup, login } = props;
+    const { closePopup, login, setToken } = props;
 
     // form state
     const [showForm, setForm] = useState('signIn');
@@ -180,8 +196,15 @@ function SignInPopup(props) {
                     <FontAwesomeIcon className="close-button" icon={faTimes} onClick={closePopup}/>
                     {/* Determining which form to display (default is sign in form) */}
                     {showForm === "signIn"
-                        ? <SignInForm setForm={() => setForm("signUp")} closePopup={closePopup} loggedIn={login} />
-                        : <SignUpForm setForm={() => setForm("signIn")} closePopup={closePopup} loggedIn={login} />
+                        ? <SignInForm 
+                            setForm={() => setForm("signUp")} 
+                            closePopup={closePopup} 
+                            loggedIn={login} 
+                            setToken={setToken}/>
+                        : <SignUpForm 
+                            setForm={() => setForm("signIn")} 
+                            closePopup={closePopup} 
+                            loggedIn={login} />
                     }
                 </div>
             </div>
