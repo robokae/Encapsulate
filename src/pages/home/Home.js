@@ -35,7 +35,7 @@ function Home(props) {
             {(username) => (
                 <div className="home">
                     <SideNavbar signedInUser={username}/>
-                    <Post userPosts={userPosts} />
+                    <Post posts={userPosts} />
                 </div> 
             )}
             

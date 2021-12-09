@@ -25,10 +25,13 @@ function Create() {
 
         let postAuthor = location.state.signedInUser;
         let date = new Date();
+ 
+        let year = date.getFullYear();
+        let month = date.getMonth() + 1;
+        console.log("month is ", month);
+        let day = date.getDate();
 
-        let postDate = `${date.getFullYear()}-${date.getMonth()}-${date.getDate().toString().padStart(2, '0')}`;
-
-        console.log(postTopic);
+        let postDate = `${year}-${month}-${day.toString().padStart(2, '0')}`;
         
         const postData = {
             title: postTitle,

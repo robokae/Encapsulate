@@ -1,7 +1,10 @@
 .posts-container {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 1rem;
 }
 
@@ -13,6 +16,10 @@
     border-radius: 1rem;
     padding: 1rem;
 
+}
+
+.post-container:last-of-type {
+    margin-bottom: 2rem;
 }
 
 .post-content {

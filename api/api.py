@@ -128,5 +128,16 @@ def get_posts():
 
     return json.dumps(posts_list), 200
 
+
+@app.route('/search', methods = ['POST'])
+def search():
+    search_term = request.get_json()['searchTerm']
+
+    connection = db.open_connection(database)
+    relevant_posts_list = db.searchPosts(connection, search_term)
+    connection.close()
+
+    return json.dumps(relevant_posts_list), 200
+
 if __name__ == '__main__':
     app.run()

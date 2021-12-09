@@ -24,11 +24,11 @@ import './Post.css';
 // ]
 
 function Post(props) {
-    const { userPosts } = props; 
+    const { posts } = props; 
 
     return (
         <div className="posts-container"> 
-            {userPosts.map((post, index) => {
+            {posts.map((post, index) => {
                 return (
                     <div key={index} className="post-container">
                         <div className="post-content">
