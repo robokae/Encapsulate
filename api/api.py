@@ -139,5 +139,25 @@ def search():
 
     return json.dumps(relevant_posts_list), 200
 
+@app.route('/allTopics', methods = ['GET'])
+def all_topics():
+    connection = db.open_connection(database)
+    all_topics_list = db.get_all_topics(connection)
+    connection.close()
+
+    return json.dumps(all_topics_list), 200
+
+@app.route('/topic', methods = ['GET'])
+def get_specific_topic_posts():
+    topic = request.args.get('topic')
+
+    print('the topic is ', topic)
+
+    connection = db.open_connection(database)
+    specific_topic_posts_list = db.get_specific_topic_posts(connection, topic);
+    connection.close()
+
+    return json.dumps(specific_topic_posts_list), 200
+
 if __name__ == '__main__':
     app.run()

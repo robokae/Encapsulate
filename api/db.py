@@ -250,6 +250,68 @@ def searchPosts(connection, search_term):
         print(e)
 
 
+def get_all_topics(connection):
+    try:
+        sql = 'select topic_name from Topics'
+
+        cursor = connection.cursor()
+        all_topics = list(cursor.execute(sql).fetchall())
+
+        if all_topics is None:
+            return None
+
+        all_topics_list = []
+        
+        for item in all_topics:
+            (topic) = item[0]
+
+            topic_dict = {
+                'topic': topic
+            }
+
+            all_topics_list.append(topic_dict)
+
+        return all_topics_list
+
+
+    except Error as e:
+        print(e)
+
+def get_specific_topic_posts(connection, topic):
+    try:
+        sql = """select post_title, username, post_date, post_text, topic_name
+                    from Users, Posts, Topics
+                    where post_author_id = user_id 
+                        and post_topic_id = topic_id
+                        and topic_name like '%{}%'""".format(topic)
+
+        cursor = connection.cursor()
+        specific_topic_posts = list(cursor.execute(sql).fetchall())
+
+        if specific_topic_posts is None:
+            return None
+        
+        specific_topic_posts_list = []
+
+        for post in specific_topic_posts:
+            (post_title, username, post_date, post_text, topic_name) = post
+
+            post_dict = {
+                'title': post_title,
+                'author': username,
+                'date': post_date, 
+                'text': post_text,
+                'topic': topic_name
+            }
+
+            specific_topic_posts_list.append(post_dict)
+
+        print(specific_topic_posts_list)
+
+        return specific_topic_posts_list
+
+    except Error as e:
+        print(e)
 
 
         
