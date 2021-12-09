@@ -79,3 +79,41 @@
     flex-direction: row;
     gap: 1.5rem;
 }
+
+.welcome-container {
+    width: 50vw;
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}   
+
+.welcome-container-top {
+    width: 50%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.welcome-image {
+    width: 80%;
+    height: 80%;
+}
+
+.welcome-container-bottom {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.welcome-heading {
+    font-family: 'Poppins', Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+.welcome-subheading {
+    color: #758694;
+}
