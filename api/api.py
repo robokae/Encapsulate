@@ -6,6 +6,7 @@ from flask_cors import CORS
 from decouple import config
 from uuid import uuid4
 import db
+import json
 
 from flask_jwt_extended import create_access_token
 # from flask_jwt_extended import get_jwt_identity
@@ -89,24 +90,43 @@ def create_post():
 
     post_id = str(uuid4())
 
+    # Add post to database
+    connection = db.open_connection(database)
+
+    # Check if topic exists by attempting to retrieve topic_id from database
+    topic_id = db.check_if_topic_exists(connection, post_topic)
+
+    # If the topic exists, then add post with the topic_id
+    if topic_id is not None:
+        post_topic_id = topic_id
+    else:
+        # Otherwise, create a new topic_id and add it to the Topics table along with the name of the topic
+        post_topic_id = str(uuid4())
+        db.add_topic(connection, post_topic_id, post_topic)
+
     post_data = [
         post_id,
         post_title, 
         post_author, 
         post_date,
         post_text,
-        post_topic
+        post_topic_id
     ]
 
-    print(post_data)
-
-    # Add post to database
-    connection = db.open_connection(database)
     db.add_post(connection, post_data)
     connection.close()
 
-    return 'Post'
+    return jsonify({'msg': 'Successful post creation'}), 200
 
+@app.route('/getPosts', methods = ['POST'])
+def get_posts():
+    username = request.get_json()['username']
+
+    connection = db.open_connection(database)
+    posts_list = db.get_posts(connection, username)
+    connection.close()
+
+    return json.dumps(posts_list), 200
 
 if __name__ == '__main__':
     app.run()

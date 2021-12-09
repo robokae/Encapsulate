@@ -10,14 +10,13 @@ const getToken = () => {
 }
 
 function Welcome() {
-
     return (
         <div className="landing">
             <div className="topLanding">
                 <div className="topDiv-words">
                     <div className="topDiv-words-container">
-                        <h1>Welcome to Encapsulate</h1>
-                        <h3>Discover and join a community of people sharing their amazing stories. Find people and topics to Encapsulate with today! </h3>
+                        <h1 className="topDiv-heading">Welcome to Encapsulate</h1>
+                        <h3 className="topDiv-subheading">Discover and join a community of people sharing their amazing stories. Find people and topics to Encapsulate with today! </h3>
                     </div>
                 </div>
                 <div className="topDiv-image">
@@ -32,8 +31,8 @@ function Welcome() {
                 </div>
                 <div className="bottomDiv-words">
                     <div className="bottomDiv-words-container">
-                        <h1>About Encapsulate</h1>
-                        <h3>Encapsulate is a free-form application where you can create journal entries about whatever you want, and with a 500 word limit you are able to make a more complex and succinct point, story, or event.</h3>
+                        <h1 className="bottomDiv-heading">About Encapsulate</h1>
+                        <h3 className="bottomDiv-subheading">Encapsulate is a free-form application where you can create journal entries about whatever you want, and with a 500 word limit you are able to make a more complex and succinct point, story, or event.</h3>
                     </div>
                 </div>
             </div>
@@ -41,14 +40,15 @@ function Welcome() {
     );
 }
 
-function Landing() {
+function Landing(props) {
+    let { signedInUser } = props;
     let token = getToken();
 
     if (token === null) {
         return <Welcome />;
     } 
 
-    return <Home />;
+    return <Home signedInUser={signedInUser} />;
 }
 
 export default Landing;

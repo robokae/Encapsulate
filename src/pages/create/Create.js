@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './Create.css';
 
 function Create() {
@@ -8,6 +8,7 @@ function Create() {
     const [postText, setPostText] = useState("");
     const [postTopic, setPostTopic] = useState("");
 
+    const navigate = useNavigate();
     const location = useLocation();
 
     const handleSetPostTitle = e =>
@@ -22,7 +23,7 @@ function Create() {
     const handleCreatePost = () => {
         let url = "/createPost";
 
-        let postAuthor = location.state.username;
+        let postAuthor = location.state.signedInUser;
         let date = new Date();
 
         let postDate = `${date.getFullYear()}-${date.getMonth()}-${date.getDate().toString().padStart(2, '0')}`;
@@ -37,7 +38,12 @@ function Create() {
             topic: postTopic
         };
 
-        axios.post(url, postData);
+        axios.post(url, postData)
+            .then(res => {
+                if (res.status === 200) {
+                    navigate("/");
+                }
+            });
     }
 
     return (

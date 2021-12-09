@@ -2,11 +2,11 @@ import { useNavigate } from 'react-router-dom';
 import './SideNavbar.css';
 
 function SideNavbar(props) {
-    const { username } = props;
+    const { signedInUser } = props;
     const navigate = useNavigate();
 
     const createPost = () => {
-        navigate("/create", {state: {username: username}});
+        navigate("/create", {state: {signedInUser: signedInUser}});
     }
 
     return (

@@ -37,7 +37,11 @@ def create_tables(connection):
 
         connection.execute(sql)
 
-        
+        sql = """create table Topics (
+                    topic_id varchar(255) primary key,
+                    topic_name varchar(100) not null)"""
+
+        connection.execute(sql)
 
         connection.commit()
 
@@ -84,20 +88,93 @@ def get_user(connection, username):
         print(e)
 
 def add_post(connection, post_data):
-    post_id, post_title, post_author, post_date, post_text, post_topic = post_data
+    post_id, post_title, post_author, post_date, post_text, post_topic_id = post_data
 
     try:
-        sql = 'insert into Posts values (?, ?, ?, ?, ?, ?)'
-        args = [post_id, post_title, post_author, post_date, post_text, post_topic]
+        sql = "select user_id from Users where username = '" + post_author + "'"
 
         cursor = connection.cursor()
-        cursor.execute(sql, args)
+        user_id = list(cursor.execute(sql).fetchone())[0]
+
+
+        sql = 'insert into Posts values (?, ?, ?, ?, ?, ?)'
+        args = [post_id, post_title, user_id, post_date, post_text, post_topic_id]
+
+        connection.execute(sql, args)
 
         connection.commit()
 
     except Error as e:
         connection.rollback()
         print(e)
+
+def get_posts(connection, username):
+    posts_list = []
+    try:
+        sql = "select user_id from Users where username = '" + username + "'"
+
+        cursor = connection.cursor()
+        user_id = list(cursor.execute(sql).fetchone())[0]
+
+
+        sql = """select post_title, username, post_date, post_text, topic_name
+                    from Posts, Users, Topics
+                    where
+                        post_author_id = user_id
+                            and post_topic_id = topic_id
+                            and username = ?"""
+        args = [username]
+
+        posts = list(cursor.execute(sql, args).fetchall())
+
+        for post in posts:
+            (post_title, post_author_id, post_date, post_text, post_topic_id) = post
+            
+            post_dict = {
+                'title': post_title,
+                'author': post_author_id,
+                'date': post_date,
+                'text': post_text,
+                'topic': post_topic_id
+            }
+
+            posts_list.append(post_dict)
+
+        print(posts_list)
+
+        return posts_list
+
+    except Error as e:
+        print(e)
+
+    return None
+
+def check_if_topic_exists(connection, topic):
+    try:
+        sql = "select topic_id from Topics where topic_name = '" + topic + "'"
+
+        cursor = connection.cursor()
+        topic_id = cursor.execute(sql).fetchone()
+
+        if topic_id is None:
+            return None
+
+        return list(topic_id)[0]
+
+    except Error as e:
+        print(e)
+
+def add_topic(connection, topic_id, topic_name):
+    try:
+        sql = 'insert into Topics values (?, ?)'
+        args = [topic_id, topic_name]
+
+        connection.execute(sql, args)
+        connection.commit()
+    except Error as e:
+        connection.rollback()
+        print(e)
+
 
 
 

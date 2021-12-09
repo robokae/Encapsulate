@@ -22,7 +22,7 @@ function SignInForm(props) {
     const [signInUsername, setSignInUsername] = useState("");
     const [signInPassword, setSignInPassword] = useState("");
 
-    const signInUser = e => {
+    const signInUser = (e) => {
         // Prevent page from refreshing upon submit
         e.preventDefault();
 

@@ -1,10 +1,11 @@
 .landing {
-    width: auto;
+    width: 100%;
     background-color: #F5F7FA; 
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
+    /* box-sizing: border-box; */
 }
 
 .topLanding,
@@ -57,6 +58,7 @@
     height: 75vh;
     display: flex;
     flex-direction: row;
+    overflow-x: hidden;
 }
 
 .bottomDiv-words-container {
@@ -86,16 +88,17 @@
     width:50%;
 }
 .social-friends {
-    width: 75%;
+    width: 55%;
     height: 75%;
 }
 .social-serenity{
-    width:85%;
+    width:55%;
     height:85%;
 }
 
 
-h1{
+.topDiv-heading,
+.bottomDiv-heading {
     margin: 0;
     padding: 0;
     color:#0B1319;
@@ -105,20 +108,23 @@ h1{
     line-height: 5rem;
 }
 
-h3{
+.topDiv-subheading, 
+.bottomDiv-subheading {
     color:#758694;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: normal;
     
 }
 
 @media screen and (max-width: 1000px) {
-    h1 {
+    .topDiv-heading,
+    .bottomDiv-heading {
         font-size: 2rem;
         line-height: 3rem;
     }
 
-    h3 {
+    .topDiv-subheading,
+    .bottomDiv-subheading {
         font-size: 1rem;
     }
 

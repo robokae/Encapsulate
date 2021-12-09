@@ -8,6 +8,7 @@ import Create from './pages/create/Create.js';
 import UserProfile from './pages/userProfile/UserProfile.js';
 import SearchResults from './pages/searchResults/SearchResults.js';
 import SignInPopup from './components/signInPopup/SignInPopup.js';
+import Post from './components/Post/Post.js';
 import './App.css';
 
 function App() {
@@ -64,13 +65,14 @@ function App() {
       />
       <UserContext.Provider value={signedInUser}>
         <Routes>
-            <Route path="/" element={<Landing />} />
+            <Route path="/" element={<Landing signedInUser={signedInUser} />} />
             {/* <Route path="/home" element={<Home />} /> */}
             <Route path="/create" element={<Create />} />
             <Route path="/userProfile" element={<UserProfile />} />
             <Route path="/searchResults" element={<SearchResults />} />
 
             <Route path="/signIn" element={<SignInPopup />} />
+            <Route path="/post" element={<Post />} />
         </Routes> 
       </UserContext.Provider>
     </div>
