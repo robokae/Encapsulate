@@ -1,3 +1,4 @@
+import { useLocation } from 'react-router-dom';
 import Home from '../home/Home.js';
 import { ReactComponent as SocialFriends } from './social-friends.svg';
 import { ReactComponent as SocialSerenity } from './social-serenity.svg';
@@ -42,13 +43,17 @@ function Welcome() {
 
 function Landing(props) {
     let { signedInUser } = props;
+    const location = useLocation();
     let token = getToken();
 
     if (token === null) {
         return <Welcome />;
     } 
 
-    return <Home signedInUser={signedInUser} />;
+    if (location.state === null)
+        return <div></div>
+
+    return <Home signedInUser={signedInUser} onPostsPage={location.state.onPostsPage} />;
 }
 
 export default Landing;

@@ -1,9 +1,10 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './SideNavbar.css';
 
 function SideNavbar(props) {
-    const { signedInUser } = props;
+    const { signedInUser, onPostsPage } = props;
     const navigate = useNavigate();
+    const location = useLocation();
 
     const createPost = () => {
         navigate("/create", {state: {signedInUser: signedInUser}});
@@ -20,8 +21,18 @@ function SideNavbar(props) {
                 </button>
             </div>
             <div className="nav-links-container">
-                <button className="posts-button">Posts</button>
-                <button className="topics-button">Topics</button>
+                <button 
+                    className={`posts-button ${onPostsPage ? "active-link" : ""}`}
+                    onClick={() => navigate("/", {state: {onPostsPage: true}})}
+                >
+                    My Posts
+                </button>
+                <button 
+                    className={`topics-button ${onPostsPage ? "" : "active-link"}`}
+                    onClick={() => navigate("/", {state: {onPostsPage: false}})}
+                >
+                        Topics
+                </button>
             </div>
         </div>
     );

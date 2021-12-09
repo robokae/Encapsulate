@@ -40,7 +40,7 @@ function SignInForm(props) {
                     closePopup();
                     loggedIn(signInUsername);
                     setToken(res.data.access_token);
-                    navigate("/");
+                    navigate("/", {state: {onPostsPage: true}});
                 }
             });
     };

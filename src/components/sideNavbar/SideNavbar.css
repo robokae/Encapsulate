@@ -43,10 +43,10 @@
 .nav-links-container {
     display: flex;
     flex-direction: column;
-    gap: .5rem;
 }
 
-.nav-links-container button {
+.posts-button,
+.topics-button {
     background-color: transparent;
     color: #758694;
     padding: .75rem;
@@ -55,8 +55,15 @@
     text-align: left;
 }
 
+.active-link {
+    font-weight: 600;
+    color: #2192FA;
+    background-color: #E0EDFA;
+}
+
 .nav-links-container button:hover {
     background-color: #E0EDFA;
     transition: all .1s ease-in-out;
     cursor: pointer;
 }
+
