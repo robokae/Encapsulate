@@ -44,7 +44,7 @@ function Create() {
         axios.post(url, postData)
             .then(res => {
                 if (res.status === 200) {
-                    navigate("/");
+                    navigate("/", {state: {onPostsPage: true}});
                 }
             });
     }
